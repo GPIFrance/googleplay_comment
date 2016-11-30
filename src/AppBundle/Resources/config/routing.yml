@@ -1,0 +1,8 @@
+app_home:
+    path:             /
+    defaults:
+        _controller:  AppBundle:Home:index
+app_smart_x:
+    path:             /{app}
+    defaults:
+        _controller:  AppBundle:Home:app
