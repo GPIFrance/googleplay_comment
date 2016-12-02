@@ -2,7 +2,26 @@ app_home:
     path:             /
     defaults:
         _controller:  AppBundle:Home:index
-app_smart_x:
-    path:             /{app}
+app_signin:
+    path:             /signin
+app_signup:
+    path:             /signup
     defaults:
-        _controller:  AppBundle:Home:app
+        _controller:  AppBundle:Home:signup
+app_signout:
+    path:             /signout
+#
+# When authenticate
+#
+app_app:
+    path:             /app/{name}
+    defaults:
+        _controller:  AppBundle:App:index
+app_app_detail:
+    path:             /app/{name}/details
+    defaults:
+        _controller:  AppBundle:App:details
+app_app_comments:
+    path:             /app/{name}/comments
+    defaults:
+        _controller:  AppBundle:App:comments

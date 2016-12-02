@@ -27,7 +27,12 @@
         "symfony/polyfill-apcu": "^1.0",
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "^2.0"
+        "incenteev/composer-parameter-handler": "^2.0",
+        "semantic/ui": "^2.2",
+        "symfony/assetic-bundle": "^2.8",
+        "components/jquery": "^3.1",
+        "moment/moment": "^2.17",
+        "coresphere/console-bundle": "^0.4.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

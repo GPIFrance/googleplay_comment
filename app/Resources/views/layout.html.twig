@@ -1,13 +1,24 @@
+{% set errorMsg = app.session.flashBag.get('error') %}
+{% set successMsg = app.session.flashBag.get('success') %}
+{% set noticeMsg = app.session.flashBag.get('notice') %}
+{% set _route = app.request.attributes.get('_route') %}
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8"/>
-	<title>{% block title %}GPI GooglePlay Comment{% endblock %}</title>
-	{% block stylesheets %}{% endblock %}
+	<title>{% block title %}Sofrilog{% endblock %}</title>
 	<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+	{% block stylesheets %}
+		{% stylesheets '@css' %}
+		<link rel="stylesheet" href="{{ asset_url }}">
+		{% endstylesheets %}
+	{% endblock %}
 </head>
 <body>
 {% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+	{% javascripts '@javascript' %}
+	<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% endblock %}
 </body>
-</html>

@@ -2,10 +2,21 @@
 # http://symfony.com/doc/current/security.html
 security:
 
-    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    encoders:
+        AppBundle\Entity\User:
+            algorithm:          sha512
+            encode_as_base64:   false
+            iterations:         1
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        main:
+            entity:
+                class:      AppBundle:User
+                property:   username
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,11 +25,18 @@ security:
             security: false
 
         main:
-            anonymous: ~
-            # activate different ways to authenticate
+            pattern:    ^/
+            anonymous:  ~
+            provider:   main
+            form_login:
+                login_path:             app_home_signin
+                check_path:             app_home_signin_check
+                default_target_path:    app_home
+            logout:
+                path:                   app_home_signout
+                target:                 app_home_signin
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/admin/set_default_user, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin,                  roles: ROLE_ADMIN                   }
+        - { path: ^/ui,                     roles: ROLE_USER                    }
