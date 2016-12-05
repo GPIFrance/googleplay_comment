@@ -1,0 +1,15 @@
+.ui.header.custom {
+	padding: 5rem 0 10rem 0;
+	margin: 0;
+	font-size: 3em;
+}
+
+.custom_signin_form {
+	text-align: left!important;
+	margin: auto!important;
+	max-width: 500px;
+}
+
+.custom_application_bar {
+	padding: 10rem 0 10rem 0!important;
+}

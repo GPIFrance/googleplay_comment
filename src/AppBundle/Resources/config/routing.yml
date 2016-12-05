@@ -1,27 +1,38 @@
 app_home:
-    path:             /
+    path:               /
     defaults:
-        _controller:  AppBundle:Home:index
-app_signin:
-    path:             /signin
-app_signup:
-    path:             /signup
+        _controller:    AppBundle:Home:index
+app_home_signin:
+    path:               /signin
     defaults:
-        _controller:  AppBundle:Home:signup
-app_signout:
-    path:             /signout
+        _controller:    AppBundle:Home:signin
+app_home_signin_check:
+    path:               /signin_check
+app_home_signup:
+    path:               /signup
+    defaults:
+        _controller:    AppBundle:Home:signup
+app_home_signout:
+    path:               /signout
 #
 # When authenticate
 #
 app_app:
-    path:             /app/{name}
+    path:               /app
     defaults:
-        _controller:  AppBundle:App:index
-app_app_detail:
-    path:             /app/{name}/details
+        _controller:    AppBundle:App:index
+app_app_details:
+    path:               /app/{name}/details
     defaults:
-        _controller:  AppBundle:App:details
+        _controller:    AppBundle:App:details
 app_app_comments:
-    path:             /app/{name}/comments
+    path:               /app/{name}/comments
     defaults:
-        _controller:  AppBundle:App:comments
+        _controller:    AppBundle:App:comments
+#
+# Administrator
+#
+app_admin:
+    path:               /admin
+    defaults:
+        _controller:    AppBundle:Admin:index

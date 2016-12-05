@@ -1,0 +1,28 @@
+{% extends '@App/base.home.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body_content %}
+  <div class="ui basic center aligned segment">
+    <div class="ui center aligned stacked segment custom_signin_form">
+      <h2 class="ui dividing header">Formulaire de connexion</h2>
+      <form action="{{ path('app_home_signup') }}" method="post" class="ui form">
+        {{ form_widget(form._token) }}
+        <div class="field">
+          {{ form_widget(form.username) }}
+        </div>
+        <div class="field">
+          {{ form_widget(form.password) }}
+        </div>
+        <div class="field">
+          {{ form_widget(form.mail) }}
+        </div>
+        <button type="submit" class="ui fluid green button">Créer</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}{{ parent() }}
+
+{% endblock %}

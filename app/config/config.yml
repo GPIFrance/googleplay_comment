@@ -81,3 +81,4 @@ assetic:
         css:
             inputs:
                 - '%kernel.root_dir%/../vendor/semantic/ui/dist/semantic.min.css'
+                - '%kernel.root_dir%/../web/css/style.css'

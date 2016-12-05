@@ -2,8 +2,19 @@
 
 {% block title %}GPI GooglePlay Comment{% endblock %}
 
-{% block body %}{{ parent() }}
-	<h1 class="ui header">Index</h1>
+{% block body_content %}
+  <div class="ui horizontal segments">
+    <div class="ui center aligned segment">
+      <h2 class="ui icon header"><i class="circular users icon"></i>
+        <a href="{{ path('app_home_signin') }}">Connexion</a>
+      </h2>
+    </div>
+    <div class="ui center aligned segment">
+        <h2 class="ui icon header"><i class="circular users icon"></i>
+          <a href="{{ path('app_home_signup') }}">Créer un compte</a>
+        </h2>
+    </div>
+  </div>
 {% endblock %}
 
 {% block javascripts %}{{ parent() }}

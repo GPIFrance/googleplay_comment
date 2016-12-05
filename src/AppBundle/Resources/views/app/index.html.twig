@@ -1,0 +1,30 @@
+{% extends '@App/base.app.html.twig' %}
+
+{% block title %}Applications{% endblock %}
+
+{% block body_content %}
+  <div class="ui vertical segment custom_application_bar">
+    {% if applications|length %}
+      <div class="ui centered cards">
+        {% for application in applications %}
+          <div class="card">
+            <div class="image">
+              <img src="{{ asset('images/android.svg') }}" alt="Android">
+            </div>
+            <div class="content">
+              <div class="header">{{ application.name }}</div>
+              <div class="meta">{{ application.version }}</div>
+              <div class="description">{{ application.comment|raw }}</div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <h2 class="ui center aligned header">Aucune application</h2>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block javascripts %}{{ parent() }}
+
+{% endblock %}
