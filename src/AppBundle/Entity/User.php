@@ -91,10 +91,13 @@ class User implements UserInterface
 
     /**
      * @param array $roles
+     * @return $this
      */
     public function setRoles($roles)
     {
         $this->roles = $roles;
+
+        return $this;
     }
 
     /**

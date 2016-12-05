@@ -1,3 +1,13 @@
+#
+# Default data
+#
+app_ini_user:
+    path:               /ini/user
+    defaults:
+        _controller:    AppBundle:Ini:data
+#
+# Home
+#
 app_home:
     path:               /
     defaults:
@@ -17,8 +27,8 @@ app_home_signout:
 #
 # When authenticate
 #
-app_app:
-    path:               /app
+app_apps:
+    path:               /apps
     defaults:
         _controller:    AppBundle:App:index
 app_app_details:
@@ -32,7 +42,35 @@ app_app_comments:
 #
 # Administrator
 #
-app_admin:
-    path:               /admin
+app_admin_users:
+    path:               /admin/users
     defaults:
-        _controller:    AppBundle:Admin:index
+        _controller:    AppBundle:Admin:users
+app_admin_user_update:
+    path:               /admin/user/update/{id}
+    defaults:
+        _controller:    AppBundle:Admin:userUpdate
+app_admin_user_delete:
+    path:               /admin/user/delete/{id}
+    defaults:
+        _controller:    AppBundle:Admin:userDelete
+app_admin_user_add:
+    path:               /admin/user/add
+    defaults:
+        _controller:    AppBundle:Admin:userAdd
+app_admin_apps:
+    path:               /admin/apps
+    defaults:
+        _controller:    AppBundle:Admin:apps
+app_admin_app_add:
+    path:               /admin/app/add
+    defaults:
+        _controller:    AppBundle:Admin:appAdd
+app_admin_app_update:
+    path:               /admin/app/update/{id}
+    defaults:
+        _controller:    AppBundle:Admin:appUpdate
+app_admin_app_delete:
+    path:               /admin/app/delete/{id}
+    defaults:
+        _controller:    AppBundle:Admin:appDelete

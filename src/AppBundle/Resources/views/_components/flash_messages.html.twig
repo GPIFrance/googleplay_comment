@@ -1,9 +1,9 @@
 {% for msg in errorMsg %}
-	<div class="ui error message">{{ msg }}</div>
+	<div class="ui error message">{{ msg|raw }}</div>
 {% endfor %}
 {% for msg in successMsg %}
-	<div class="ui success message">{{ msg }}</div>
+	<div class="ui success message">{{ msg|raw }}</div>
 {% endfor %}
 {% for msg in noticeMsg %}
-	<div class="ui message">{{ msg }}</div>
+	<div class="ui message">{{ msg|raw }}</div>
 {% endfor %}

@@ -1,6 +1,6 @@
 .ui.header.custom {
-	padding: 5rem 0 10rem 0;
-	margin: 0;
+	margin: 5rem 0 5rem 0;
+	padding-bottom: 5rem;
 	font-size: 3em;
 }
 
@@ -12,4 +12,21 @@
 
 .custom_application_bar {
 	padding: 10rem 0 10rem 0!important;
+}
+
+.custom_admin_vertical_menu {
+	height: 100%;
+}
+.custom_admin_container {
+	padding-left: 15rem;
+}
+
+.custom_admin_title h1 {
+	margin: 5rem 0 5rem 0!important;
+	padding: 0!important;
+}
+
+.custom_admin_segment {
+	margin: -14px 0 2rem 0!important;
+	border-radius: 0!important;
 }

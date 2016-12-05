@@ -1,0 +1,37 @@
+{% extends '@App/base.admin.html.twig' %}
+
+{% block admin_title %}Liste des applications{% endblock %}
+
+{% block body_content %}
+	<div class="ui container">
+		<table class="ui celled table">
+			<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Version</th>
+				<th>Comment</th>
+				<th></th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for appItem in apps %}
+				<tr>
+					<td>{{ appItem.name }}</td>
+					<td>{{ appItem.version }}</td>
+					<td>{{ appItem.comment }}</td>
+					<td>
+						<div class="ui fuild buttons">
+							<a href="{{ path('app_admin_app_update', {'id': appItem.id}) }}" class="ui orange button">Modifier</a>
+							<a href="{{ path('app_admin_app_delete', {'id': appItem.id}) }}" class="ui red button">Supprimer</a>
+						</div>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">Aucune application</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
