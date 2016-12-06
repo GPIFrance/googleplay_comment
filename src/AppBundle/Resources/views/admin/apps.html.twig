@@ -3,6 +3,11 @@
 {% block admin_title %}Liste des applications{% endblock %}
 
 {% block body_content %}
+	<div class="ui inverted segment custom_admin_segment">
+		<div class="ui inverted secondary menu">
+			<a href="{{ path('app_admin_app_add') }}" class="item">Ajouter une application</a>
+		</div>
+	</div>
 	<div class="ui container">
 		<table class="ui celled table">
 			<thead>
@@ -20,7 +25,7 @@
 					<td>{{ appItem.version }}</td>
 					<td>{{ appItem.comment }}</td>
 					<td>
-						<div class="ui fuild buttons">
+						<div class="ui fluid buttons">
 							<a href="{{ path('app_admin_app_update', {'id': appItem.id}) }}" class="ui orange button">Modifier</a>
 							<a href="{{ path('app_admin_app_delete', {'id': appItem.id}) }}" class="ui red button">Supprimer</a>
 						</div>

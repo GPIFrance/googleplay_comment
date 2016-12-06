@@ -3,5 +3,24 @@
 {% block admin_title %}Modifier un utilisateur{% endblock %}
 
 {% block body_content %}
-	UserUpdate
+	<div class="ui middle aligned center aligned grid">
+		<div class="column" style="max-width: 450px;margin-top: 5rem;">
+			<h2 class="ui left aligned header">Modification de l'utilisateur : <i>{{ user.username }}</i></h2>
+			<div class="ui stacked segment">
+				{{ form_start(form, {'attr': {'class': 'ui form'}}) }}
+				{{ form_widget(form._token) }}
+				<div class="field">
+					{{ form_widget(form.username, {'attr': {'readonly': true}}) }}
+				</div>
+				<div class="field">
+					{{ form_widget(form.password) }}
+				</div>
+				<div class="field">
+					{{ form_widget(form.mail) }}
+				</div>
+				<button class="ui fluid positive button" type="submit">Modifier</button>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
 {% endblock %}

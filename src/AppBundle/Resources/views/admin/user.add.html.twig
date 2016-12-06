@@ -3,5 +3,24 @@
 {% block admin_title %}Ajouter un utilisateur{% endblock %}
 
 {% block body_content %}
-	UserAdd
+  <div class="ui middle aligned center aligned grid">
+    <div class="column" style="max-width: 450px;margin-top: 5rem;">
+      <h2 class="ui left aligned header">Ajout d'un utilisateur</h2>
+      <div class="ui stacked segment">
+        {{ form_start(form, {'attr': {'class': 'ui form'}}) }}
+        {{ form_widget(form._token) }}
+        <div class="field">
+          {{ form_widget(form.username, {'attr': {'autocomplete': 'off'}}) }}
+        </div>
+        <div class="field">
+          {{ form_widget(form.password, {'attr': {'autocomplete': 'off'}}) }}
+        </div>
+        <div class="field">
+          {{ form_widget(form.mail, {'attr': {'autocomplete': 'off'}}) }}
+        </div>
+        <button type="submit" class="ui fluid positive button">Ajouter</button>
+        {{ form_end(form) }}
+      </div>
+    </div>
+  </div>
 {% endblock %}

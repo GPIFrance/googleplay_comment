@@ -2,18 +2,27 @@
 
 {% block body %}
 	<div class="ui inverted fixed vertical menu custom_admin_vertical_menu">
+		<a href="{{ path('app_home') }}" class="item">Accueil</a>
 		<a href="{{ path('app_admin_users') }}" class="{{ _route == 'app_admin_users' ? 'blue active ' }}item">Utilisateurs</a>
 		<a href="{{ path('app_admin_apps') }}" class="{{ _route == 'app_admin_apps' ? 'blue active ' }}item">Applications</a>
+		<div class="ui item inverted accordion">
+			<div class="title">Visualisation</div>
+			<div class="content">
+				<a href="{{ path('app_apps') }}" class="item">Applications</a>
+			</div>
+		</div>
 	</div>
 	<div class="custom_admin_container">
+		{% include '@App/_components/flash_messages.html.twig' %}
 		<div class="ui basic inverted segment custom_admin_title">
 			<h1 class="ui inverted grey center aligned header">{% block admin_title %}{% endblock %}</h1>
 		</div>
-		{% include '@App/_components/flash_messages.html.twig' %}
 		{% block body_content %}{% endblock %}
 	</div>
 {% endblock %}
 
 {% block javascripts %}{{ parent() }}
-
+	<script>
+		$('.ui.accordion').accordion();
+	</script>
 {% endblock %}
