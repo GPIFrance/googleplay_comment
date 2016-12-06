@@ -3,5 +3,24 @@
 {% block admin_title %}Ajouter une application{% endblock %}
 
 {% block body_content %}
-	AppAdd
+	<div class="ui middle aligned center aligned grid">
+		<div class="column" style="max-width: 450px;margin-top: 5rem;">
+			<h2 class="ui left aligned header">Ajout d'une application</h2>
+			<div class="ui stacked segment">
+				{{ form_start(form, {'attr': {'class': 'ui form'}}) }}
+				{{ form_widget(form._token) }}
+				<div class="field">
+					{{ form_widget(form.name, {'attr': {'autocomplete': 'off'}}) }}
+				</div>
+				<div class="field">
+					{{ form_widget(form.version, {'attr': {'autocomplete': 'off'}}) }}
+				</div>
+				<div class="field">
+					{{ form_widget(form.comment, {'attr': {'autocomplete': 'off'}}) }}
+				</div>
+				<button type="submit" class="ui fluid positive button">Ajouter</button>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
 {% endblock %}

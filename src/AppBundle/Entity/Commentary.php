@@ -30,6 +30,13 @@ class Commentary
     private $content;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dt_creation", type="datetime")
+     */
+    private $dtCreation;
+
+    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="User", cascade={"persist"}, fetch="EXTRA_LAZY")
@@ -42,6 +49,14 @@ class Commentary
      * @ORM\ManyToOne(targetEntity="Application", cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $application;
+
+    /**
+     * Commentary constructor.
+     */
+    public function __construct()
+    {
+        $this->dtCreation = new \DateTime();
+    }
 
     /**
      * Get id
@@ -123,5 +138,29 @@ class Commentary
     public function getApplication()
     {
         return $this->application;
+    }
+
+    /**
+     * Set dtCreation
+     *
+     * @param \DateTime $dtCreation
+     *
+     * @return Commentary
+     */
+    public function setDtCreation($dtCreation)
+    {
+        $this->dtCreation = $dtCreation;
+
+        return $this;
+    }
+
+    /**
+     * Get dtCreation
+     *
+     * @return \DateTime
+     */
+    public function getDtCreation()
+    {
+        return $this->dtCreation;
     }
 }

@@ -1,9 +1,28 @@
-{%  extends '::layout.html.twig' %}
+{% extends '::layout.html.twig' %}
 
 {% block body %}
-  {% include '@App/_components/flash_messages.html.twig' %}
-  <h1 class="ui center aligned dividing header custom"><a href="{{ path('app_home') }}">GPI - GooglePlay comments</a></h1>
-  {% block body_content %}{% endblock %}
+	<div class="ui huge fixed inverted menu">
+		<a href="{{ path('app_home') }}" class="item">GPI - GooglePlay comments</a>
+		<a href="{{ path('app_home_apps') }}" class="item">Applications</a>
+		<div class="right menu">
+			{% if app.user %}
+				<div class="item">Connecté avec {{ app.user.username }}</div>
+				{% if app.user.roles[0] == 'ROLE_ADMIN' %}
+					<a href="{{ path('app_admin_users') }}" class="item">Administration</a>
+				{% endif %}
+				<a href="{{ path('app_home_signout') }}" class="item">Déconnexion</a>
+			{% else %}
+				<a href="{{ path('app_home_signup') }}" class="orange item">Inscription</a>
+				<a href="{{ path('app_home_signin') }}" class="blue item">Connexion</a>
+			{% endif %}
+		</div>
+	</div>
+	<div class="home_container">
+		<div style="padding: 0 0 1.5rem 0;">
+			{% include '@App/_components/flash_messages.html.twig' %}
+		</div>
+		{% block body_content %}{% endblock %}
+	</div>
 {% endblock %}
 
 {% block javascripts %}{{ parent() }}

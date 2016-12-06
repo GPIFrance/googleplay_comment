@@ -1,0 +1,107 @@
+{% extends '@App/base.admin.html.twig' %}
+
+{% block admin_title %}Liste des commentaires{% endblock %}
+
+{% block body_content %}
+	<div class="ui inverted segment custom_admin_segment">
+		<div class="ui fluid inverted secondary menu">
+			<div class="item">
+				<div class="ui selection dropdown" id="dropdown_application">
+					<input type="hidden" name="Application">
+					<i class="dropdown icon"></i>
+					<div class="default text">Application</div>
+					<div class="menu">
+						{% for application in applications %}
+							<div class="item" data-value="{{ application.name }}">{{ application.name ~ ' - ' ~ application.version }}</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ui selection dropdown" id="dropdown_user">
+					<input type="hidden" name="Utilisateur">
+					<i class="dropdown icon"></i>
+					<div class="default text">Utilisateur</div>
+					<div class="menu">
+						{% for user in users %}
+							<div class="item" data-value="{{ user.username }}">{{ user.username }}</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<a id="a_filter" href="#" class="ui inverted button">Appliquer</a>
+			</div>
+		</div>
+	</div>
+	<div class="ui container">
+		<table class="ui celled table">
+			<thead>
+			<tr>
+				<th>Utilisateur</th>
+				<th>Application</th>
+				<th>Version</th>
+				<th>Date d'ajout</th>
+				<th>Commentaire</th>
+				<th></th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for comment in comments %}
+				<tr>
+					<td>{{ comment.user.username }}</td>
+					<td>{{ comment.application.name }}</td>
+					<td>{{ comment.application.version }}</td>
+					<td>{{ comment.dtCreation|date('Y-m-d à H:i:s') }}</td>
+					<td>{{ comment.content|nl2br|raw }}</td>
+					<td>
+						<div class="ui fluid buttons">
+							<a href="{{ path('app_admin_comment_update', {'id': comment.id}) }}" class="ui orange button">Modifier</a>
+							<a href="{{ path('app_admin_comment_delete', {'id': comment.id}) }}" class="ui red button">Supprimer</a>
+						</div>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="6">Aucun commentaire</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
+
+{% block javascripts %}{{ parent() }}
+	<script>
+		var $dropdown_application = $('#dropdown_application');
+		var application_value = null;
+		var $dropdown_user = $('#dropdown_user');
+		var user_value = null;
+		var $a_filter = $('#a_filter');
+		var link = "/admin/comments{1}{2}";
+
+		$dropdown_application.dropdown({
+			onChange: function (value) {
+				application_value = value;
+			}
+		});
+		$dropdown_user.dropdown({
+			onChange: function (value) {
+				user_value = value;
+			}
+		});
+		$a_filter.on('click', function () {
+			if (application_value !== null && user_value == null) {
+				link = link.replace('{1}', '/'+application_value);
+			} else if (application_value !== null && user_value !== null) {
+				link = link.replace('{1}', '/'+application_value);
+				link = link.replace('{2}', '/'+user_value);
+			} else if (application_value == null && user_value == null) {
+				link = link.replace('{1}{2}', '');
+			} else if (application_value == null && user_value !== null) {
+				return false;
+			}
+			$(this).attr('href', link);
+		})
+	</script>
+{% endblock %}

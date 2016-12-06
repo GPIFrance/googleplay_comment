@@ -2,13 +2,28 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Application;
 use AppBundle\Entity\User;
+use AppBundle\Form\ApplicationType;
+use AppBundle\Form\CommentaryType;
 use AppBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
+
+trait Referer {
+    private function getRefererParams(Request $request) {
+        $referer = $request->headers->get('referer');
+        $baseUrl = $request->getBaseUrl();
+        $lastPath = substr($referer, strpos($referer, $baseUrl) + strlen($baseUrl));
+        return $this->get('router')->getMatcher()->match($lastPath);
+    }
+}
 
 class AdminController extends Controller
 {
+    use Referer;
+
     public function indexAction()
     {
         return $this->render('');
@@ -129,4 +144,159 @@ class AdminController extends Controller
         ));
     }
 
+    public function appAddAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $app = new Application();
+        $form = $this->get('form.factory')->createBuilder(ApplicationType::class, $app)->getForm();
+
+        if ($request->isMethod('post')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                try {
+                    $em->persist($app);
+                    $em->flush();
+                    $this->addFlash('success', "L'application {$app->getName()} en version {$app->getVersion()} a été ajouté");
+                    return $this->redirectToRoute('app_admin_apps');
+                } catch (\Exception $e) {
+                    $this->addFlash('error', "Une erreur est survenue lors de l'ajout de l'application<br>{$e->getMessage()}");
+                }
+            } else {
+                $this->addFlash('error', "Une erreur est survenue lors de la validation du formulaire");
+            }
+        }
+
+        return $this->render('@App/admin/app.add.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    public function appUpdateAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $app = $em->getRepository('AppBundle:Application')->find($id);
+        $form = $this->get('form.factory')->createBuilder(ApplicationType::class, $app)->getForm();
+
+        if ($request->isMethod('post')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                try {
+                    $em->persist($app);
+                    $em->flush();
+                    $this->addFlash('succes', "L'application {$app->getName()} a été mise à jour");
+                } catch (\Exception $e) {
+                    $this->addFlash('error', "Une erreur est survenue lors de la suppression de l'application");
+                }
+            } else {
+                $this->addFlash('error', "Une erreur est survenue lors de la validation du formulaire");
+            }
+        }
+
+        return $this->render('@App/admin/app.update.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    public function appDeleteAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $app = $em->getRepository('AppBundle:Application')->find($id);
+
+        if (!$app) {
+            $this->addFlash('notice', "Application introuvable dans la base de données");
+        } else {
+            try {
+                $appName = $app->getName();
+                $em->remove($app);
+                $em->flush();
+                $this->addFlash('success', "L'application $appName a bien été supprimée");
+            } catch (\Exception $e) {
+                $this->addFlash('error', "Une erreur est survenue lors de la suppression de l'application");
+            }
+        }
+
+        return $this->redirectToRoute('app_admin_apps');
+    }
+
+    public function commentsAction($app_name, $user_username)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comments = null;
+        $application = null;
+        $user = null;
+        $users = $em->getRepository('AppBundle:User')->findAll();
+        $applications = $em->getRepository('AppBundle:Application')->findAll();
+
+        if (!is_null($app_name) && is_null($user_username)) {
+            $application = $em->getRepository('AppBundle:Application')->findOneBy(array('name' => $app_name));
+            if (!$application) $this->addFlash('notice', "L'application $app_name n'existe pas dans la base de données");
+            $comments = $em->getRepository('AppBundle:Commentary')->findBy(array('application' => $application));
+        } else if (!is_null($app_name) && !is_null($user_username)) {
+            $application = $em->getRepository('AppBundle:Application')->findOneBy(array('name' => $app_name));
+            if (!$application) $this->addFlash('notice', "L'application $app_name n'existe pas dans la base de données");
+            $user = $em->getRepository('AppBundle:User')->findOneBy(array('username' => $user_username));
+            if (!$user) $this->addFlash('notice', "L'utilisateur $user_username n'existe pas dans la base de données");
+            $comments = $em->getRepository('AppBundle:Commentary')->findBy(array('user' => $user, 'application' => $application));
+        } else {
+            $comments = $em->getRepository('AppBundle:Commentary')->findAll();
+        }
+
+        return $this->render('@App/admin/comments.html.twig', array(
+            'comments' => $comments,
+            'users' => $users,
+            'applications' => $applications
+        ));
+    }
+
+    public function commentUpdateAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository('AppBundle:Commentary')->find($id);
+        $form = $this->get('form.factory')->createBuilder(CommentaryType::class, $comment)->getForm();
+
+        if ($request->isMethod('post')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                try {
+                    $em->persist($comment);
+                    $em->flush();
+                    $this->addFlash('success', "Le commentaire a bien été mise à jour");
+                } catch (Exception $e) {
+                    $this->addFlash('error', "Une erreur est survenue lors de la mise à jour du commentaire");
+                }
+            } else {
+                $this->addFlash('error', "Une erreur est survenue lors de la validation du formulaire");
+            }
+        }
+
+        return $this->render('@App/admin/comment.update.html.twig', array(
+            'comment' => $comment,
+            'form' => $form->createView()
+        ));
+    }
+
+    public function commentDeleteAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository('AppBundle:Commentary')->find($id);
+        $params = $this->getRefererParams($request);
+
+        if (!$comment) {
+            $this->addFlash('notice', "Le commentaire n'existe pas dans la base de données");
+            return $this->redirectToRoute('app_admin_comments');
+        }
+
+        try {
+            $em->remove($comment);
+            $em->flush();
+            $this->addFlash('success', "Le commentaire a bien été supprimé");
+            return $this->redirect($this->generateUrl($params['_route'], array(
+                'slug' => $params['slug']
+            )));
+        } catch (\Exception $e) {
+            $this->addFlash('error', "Une erreur est survenue lors de la suppression du commentaire");
+        }
+
+        return $this->redirectToRoute('app_admin_comments');
+    }
 }

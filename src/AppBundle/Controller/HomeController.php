@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Commentary;
 use AppBundle\Entity\User;
+use AppBundle\Form\CommentaryType;
 use AppBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,13 +47,13 @@ class HomeController extends Controller
         }
 
         return $this->render('@App/home/signup.html.twig', array(
-          'form' => $form->createView()
+            'form' => $form->createView()
         ));
     }
 
     public function signinAction()
     {
-        if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATE_REMEMBERED')){
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATE_REMEMBERED')) {
             return $this->redirectToRoute('app_app');
         } else if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_admin');
@@ -60,13 +62,70 @@ class HomeController extends Controller
         $authenticationUtils = $this->get('security.authentication_utils');
 
         return $this->render('@App/home/signin.html.twig', array(
-          'last_username' => $authenticationUtils->getLastUsername(),
-          'error' => $authenticationUtils->getLastAuthenticationError()
+            'last_username' => $authenticationUtils->getLastUsername(),
+            'error' => $authenticationUtils->getLastAuthenticationError()
         ));
     }
 
-    public function appAction($app)
+    public function appsAction()
     {
-        return $this->render('@App/home/app.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $applications = $em->getRepository('AppBundle:Application')->findAll();
+
+        return $this->render('@App/home/apps.html.twig', array(
+            'applications' => $applications
+        ));
+    }
+
+    public function appDetailsAction($name)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $application = $em->getRepository('AppBundle:Application')->findOneBy(array('name' => $name));
+
+        return $this->render('@App/home/app.details.html.twig', array(
+            'application' => $application
+        ));
+    }
+
+    public function appCommentsAction(Request $request, $name)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $comment = new Commentary();
+
+        // On test si l'utilisateur est identifié
+        if (!$user) {
+            $this->addFlash('notice', "Vous devez être identifié pour commenter une application");
+            return $this->redirectToRoute('app_home_signin');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $application = $em->getRepository('AppBundle:Application')->findOneBy(array('name' => $name));
+        $form = $this->get('form.factory')->createBuilder(CommentaryType::class, $comment)->getForm();
+
+        if ($request->isMethod('post')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                try {
+                    $comment->setUser($user);
+                    $comment->setApplication($application);
+                    $em->persist($comment);
+                    $em->flush();
+                    $this->addFlash('success', "Votre commentaire a bien été enregistré");
+                } catch (\Exception $e) {
+                    $this->addFlash('error', "Une erreur est survenue lors de l'enregistrement de votre commentaire");
+                }
+            } else {
+                $this->addFlash('error', "Une erreur est survenue lors de la validation du formulaire");
+            }
+        }
+
+        $comments = $em->getRepository('AppBundle:Commentary')->findBy(array('application' => $application));
+
+        return $this->render('@App/home/app.comments.html.twig', array(
+            'application' => $application,
+            'comments' => $comments,
+            'form' => $form->createView()
+        ));
     }
 }

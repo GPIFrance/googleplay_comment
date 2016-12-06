@@ -4,6 +4,17 @@ parameters:
 #    parameter_name: value
 
 services:
+    app.twig_extension:
+        class:  AppBundle\Twig\Extension\AppExtension
+        arguments:
+            doctrine:   "@doctrine"
+        public: false
+        tags:
+            - { name: twig.extension }
+    app.login_success_handler:
+        class:  AppBundle\Services\LoginSuccessHandlerService
+        arguments:
+            router: "@router"
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

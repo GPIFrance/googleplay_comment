@@ -1,23 +1,24 @@
 {% extends '@App/base.admin.html.twig' %}
 
-{% block admin_title %}Modifier un utilisateur{% endblock %}
+{% block admin_title %}Modifier un commentaire{% endblock %}
 
 {% block body_content %}
 	<div class="ui middle aligned center aligned grid">
 		<div class="column" style="max-width: 450px;margin-top: 5rem;">
-			<h2 class="ui left aligned header">Modification de l'utilisateur : <i>{{ user.username }}</i></h2>
+			<h2 class="ui left aligned header">Modification du commentaire : <i>{{ comment.id }}</i></h2>
 			<div class="ui stacked segment">
 				{{ form_start(form, {'attr': {'class': 'ui form'}}) }}
 				{{ form_widget(form._token) }}
-				{{ form_widget(form.dtCreation, {'attr': {'type': 'hidden'}}) }}
-				<div class="field">
-					{{ form_widget(form.username, {'attr': {'readonly': true}}) }}
+				<div class="two fields">
+					<div class="field">
+						{{ form_widget(form.dtCreation.children.date, {'attr': {'readonly': true}}) }}
+					</div>
+					<div class="field">
+						{{ form_widget(form.dtCreation.children.time, {'attr': {'readonly': true}}) }}
+					</div>
 				</div>
 				<div class="field">
-					{{ form_widget(form.password) }}
-				</div>
-				<div class="field">
-					{{ form_widget(form.mail) }}
+					{{ form_widget(form.content) }}
 				</div>
 				<button class="ui fluid positive button" type="submit">Modifier</button>
 				{{ form_end(form) }}

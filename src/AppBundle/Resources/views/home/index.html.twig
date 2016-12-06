@@ -4,23 +4,30 @@
 
 {% block body_content %}
 	<div class="ui equal width grid">
-		<div class="column">
-			<h2 class="ui center aligned icon header"><i class="circular users icon"></i>
-				{% if app.user %}
-					{% if app.user.roles[0] == 'ROLE_ADMIN' %}
-						<a href="{{ path('app_admin_users') }}">Interface d'administration</a>
-					{% else %}
-						<a href="{{ path('app_apps') }}">Applications</a>
-					{% endif %}
-				{% else %}
-					<a href="{{ path('app_home_signin') }}">Connexion</a>
-				{% endif %}
-			</h2>
+		<div class="row">
+			<div class="column">
+				<h1 class="ui center aligned header custom_home_title">Bienvenue sur GPI - GooglePlay comments</h1>
+			</div>
 		</div>
-		<div class="column">
-			<h2 class="ui center aligned icon header"><i class="circular users icon"></i>
-				<a href="{{ path('app_home_signup') }}">Créer un compte</a>
-			</h2>
+		<div class="row">
+			<div class="column">
+				<h2 class="ui center aligned icon header"><i class="circular users icon"></i>
+					{% if app.user %}
+						{% if app.user.roles[0] == 'ROLE_ADMIN' %}
+							<a href="{{ path('app_admin_users') }}">Interface d'administration</a>
+						{% else %}
+							<a href="{{ path('app_home_apps') }}">Applications</a>
+						{% endif %}
+					{% else %}
+						<a href="{{ path('app_home_signin') }}">Connexion</a>
+					{% endif %}
+				</h2>
+			</div>
+			<div class="column">
+				<h2 class="ui center aligned icon header"><i class="circular users icon"></i>
+					<a href="{{ path('app_home_signup') }}">Créer un compte</a>
+				</h2>
+			</div>
 		</div>
 	</div>
 {% endblock %}

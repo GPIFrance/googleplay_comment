@@ -20,17 +20,21 @@
 			</tr>
 			</thead>
 			<tbody>
-			{% for user in users if user.roles[0] != 'ROLE_ADMIN' %}
+			{% for user in users %}
 				<tr>
 					<td>{{ user.username }}</td>
 					<td>{{ user.password|slice(1, 10) ~ ' ...' }}</td>
 					<td>{{ user.mail }}</td>
 					<td>{{ user.roles[0] }}</td>
 					<td>
-						<div class="ui fluid buttons">
-							<a href="{{ path('app_admin_user_update', {'id': user.id}) }}" class="ui orange button">Modifier</a>
-							<a href="{{ path('app_admin_user_delete', {'id': user.id}) }}" class="ui red button">Supprimer</a>
-						</div>
+						{% if user.roles[0] != 'ROLE_ADMIN' %}
+							<div class="ui fluid buttons">
+								<a href="{{ path('app_admin_user_update', {'id': user.id}) }}" class="ui orange button">Modifier</a>
+								<a href="{{ path('app_admin_user_delete', {'id': user.id}) }}" class="ui red button">Supprimer</a>
+							</div>
+						{% else %}
+							Utilisateur non modifiable
+						{% endif %}
 					</td>
 				</tr>
 			{% else %}

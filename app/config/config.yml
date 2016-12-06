@@ -76,6 +76,7 @@ assetic:
         javascript:
             inputs:
                 - '%kernel.root_dir%/../vendor/components/jquery/jquery.min.js'
+#                - '%kernel.root_dir%/../web/js/jquery-migrate-3.0.0.min.js'
                 - '%kernel.root_dir%/../vendor/semantic/ui/dist/semantic.min.js'
                 - '%kernel.root_dir%/../vendor/moment/moment/min/moment-with-locales.min.js'
         css:

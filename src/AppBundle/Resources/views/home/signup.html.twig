@@ -1,11 +1,11 @@
 {% extends '@App/base.home.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body_content %}
   <div class="ui basic center aligned segment">
     <div class="ui center aligned stacked segment custom_signin_form">
-      <h2 class="ui dividing header">Formulaire de connexion</h2>
+      <h2 class="ui dividing header">Formulaire d'inscription</h2>
       <form action="{{ path('app_home_signup') }}" method="post" class="ui form">
         {{ form_widget(form._token) }}
         <div class="field">

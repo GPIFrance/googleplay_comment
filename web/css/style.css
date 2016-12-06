@@ -8,6 +8,10 @@
 	font-size: 3em;
 }
 
+.custom_home_title {
+	padding: 7rem 0 7rem 0!important;
+}
+
 .custom_signin_form {
 	text-align: left!important;
 	margin: auto!important;
@@ -37,4 +41,17 @@
 .custom_admin_segment {
 	margin: -14px 0 2rem 0!important;
 	border-radius: 0!important;
+}
+
+.home_container {
+	padding-top: 50px;
+	height: 100%;
+}
+
+.custom_app_comment_grid {
+	height: 100%!important;
+}
+
+.custom_segment_comment {
+	padding: 1em!important;
 }

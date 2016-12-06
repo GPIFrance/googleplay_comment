@@ -24,21 +24,18 @@ app_home_signup:
         _controller:    AppBundle:Home:signup
 app_home_signout:
     path:               /signout
-#
-# When authenticate
-#
-app_apps:
+app_home_apps:
     path:               /apps
     defaults:
-        _controller:    AppBundle:App:index
-app_app_details:
+        _controller:    AppBundle:Home:apps
+app_home_app_details:
     path:               /app/{name}/details
     defaults:
-        _controller:    AppBundle:App:details
-app_app_comments:
+        _controller:    AppBundle:Home:appDetails
+app_home_app_comments:
     path:               /app/{name}/comments
     defaults:
-        _controller:    AppBundle:App:comments
+        _controller:    AppBundle:Home:appComments
 #
 # Administrator
 #
@@ -74,3 +71,17 @@ app_admin_app_delete:
     path:               /admin/app/delete/{id}
     defaults:
         _controller:    AppBundle:Admin:appDelete
+app_admin_comments:
+    path:               /admin/comments/{app_name}/{user_username}
+    defaults:
+        _controller:    AppBundle:Admin:comments
+        app_name:       null
+        user_username:  null
+app_admin_comment_update:
+    path:               /admin/comment/update/{id}
+    defaults:
+        _controller:    AppBundle:Admin:commentUpdate
+app_admin_comment_delete:
+    path:               /admin/comment/delete/{id}
+    defaults:
+        _controller:    AppBundle:Admin:commentDelete
