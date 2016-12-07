@@ -78,6 +78,7 @@ assetic:
                 - '%kernel.root_dir%/../vendor/components/jquery/jquery.min.js'
                 - '%kernel.root_dir%/../vendor/semantic/ui/dist/semantic.min.js'
                 - '%kernel.root_dir%/../vendor/moment/moment/min/moment-with-locales.min.js'
+                - '%kernel.root_dir%/../web/js/build.js'
         css:
             inputs:
                 - '%kernel.root_dir%/../vendor/semantic/ui/dist/semantic.min.css'

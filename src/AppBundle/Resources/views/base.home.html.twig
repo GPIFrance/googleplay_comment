@@ -2,8 +2,8 @@
 
 {% block body %}
 	<div class="ui huge fixed inverted menu">
-		<a href="{{ path('app_home') }}" class="item">GPI - GooglePlay comments</a>
-		<a href="{{ path('app_home_apps') }}" class="item">Applications</a>
+		<a href="{{ path('app_home') }}" class="{{ _route == 'app_home' ? 'active ' }}item">GPI - GooglePlay comments</a>
+		<a href="{{ path('app_home_apps') }}" class="{{ _route == 'app_home_apps' ? 'active ' }}item">Applications</a>
 		<div class="right menu">
 			{% if app.user %}
 				<div class="item">Connecté avec {{ app.user.username }}</div>
@@ -12,8 +12,8 @@
 				{% endif %}
 				<a href="{{ path('app_home_signout') }}" class="item">Déconnexion</a>
 			{% else %}
-				<a href="{{ path('app_home_signup') }}" class="orange item">Inscription</a>
-				<a href="{{ path('app_home_signin') }}" class="blue item">Connexion</a>
+				<a href="{{ path('app_home_signup') }}" class="{{ _route == 'app_home_signup' ? 'active ' }}item">Inscription</a>
+				<a href="{{ path('app_home_signin') }}" class="{{ _route == 'app_home_signin' ? 'active ' }}item">Connexion</a>
 			{% endif %}
 		</div>
 	</div>

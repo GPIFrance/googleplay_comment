@@ -1,3 +1,7 @@
+#app_vuejs {
+	height: 100%;
+}
+
 .ui.message {
 	margin: 0!important;
 }
@@ -54,4 +58,11 @@
 
 .custom_segment_comment {
 	padding: 1em!important;
+}
+
+.custom_error_container {
+	height: 100%;
+}
+.custom_error_container h1 {
+	font-size: 5em!important;
 }

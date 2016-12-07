@@ -3,13 +3,13 @@
 {% block body %}
 	<div class="ui inverted fixed vertical accordion menu custom_admin_vertical_menu">
 		<div class="item">
-			<div class="title">Visualisation</div>
+			<div class="title">Visualisation<i class="dropdown icon"></i></div>
 			<div class="content">
 				<a href="{{ path('app_home') }}" class="item">Accueil</a>
 				<a href="{{ path('app_home_apps') }}" class="item">Applications</a>
 				{% for application in getApps() %}
 					<a href="{{ path('app_home_app_comments', {'name': application.name}) }}"
-						 class="item">{{ application.name ~ ' - ' ~ application.version }}</a>
+						 class="item">-> {{ application.name ~ ' - ' ~ application.version }}</a>
 				{% endfor %}
 			</div>
 		</div>

@@ -15,7 +15,9 @@
 	{% endblock %}
 </head>
 <body>
-{% block body %}{% endblock %}
+<div id="app_vuejs">
+	{% block body %}{% endblock %}
+</div>
 {% block javascripts %}
 	{% javascripts '@javascript' %}
 	<script src="{{ asset_url }}"></script>

@@ -92,7 +92,7 @@
 		});
 		$a_filter.on('click', function () {
 			if (application_value !== null && user_value == null) {
-				link = link.replace('{1}', '/'+application_value);
+				link = link.replace('{1}{2}', '/'+application_value);
 			} else if (application_value !== null && user_value !== null) {
 				link = link.replace('{1}', '/'+application_value);
 				link = link.replace('{2}', '/'+user_value);
