@@ -1,0 +1,6 @@
+{% extends '::layout.html.twig' %}
+
+{% block body %}
+	<h1 class="ui center aligned header">{{ status_code }} Erreur serveur</h1>
+	<h2 class="ui center aligned header"><a href="{{ app.request.server.get('HTTP_REFERER') }}">Retour à la page précedente</a></h2>
+{% endblock %}
