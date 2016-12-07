@@ -111,7 +111,7 @@ class HomeController extends Controller
                     $comment->setApplication($application);
                     $em->persist($comment);
                     $em->flush();
-                    $this->addFlash('success', "Votre commentaire a bien été enregistré");
+                    $this->addFlash('success', "Votre commentaire a été enregistré");
                 } catch (\Exception $e) {
                     $this->addFlash('error', "Une erreur est survenue lors de l'enregistrement de votre commentaire");
                 }

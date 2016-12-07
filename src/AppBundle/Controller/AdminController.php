@@ -11,19 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
-trait Referer {
-    private function getRefererParams(Request $request) {
-        $referer = $request->headers->get('referer');
-        $baseUrl = $request->getBaseUrl();
-        $lastPath = substr($referer, strpos($referer, $baseUrl) + strlen($baseUrl));
-        return $this->get('router')->getMatcher()->match($lastPath);
-    }
-}
-
 class AdminController extends Controller
 {
-    use Referer;
-
     public function indexAction()
     {
         return $this->render('');
@@ -279,7 +268,6 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $comment = $em->getRepository('AppBundle:Commentary')->find($id);
-        $params = $this->getRefererParams($request);
 
         if (!$comment) {
             $this->addFlash('notice', "Le commentaire n'existe pas dans la base de données");
@@ -290,9 +278,7 @@ class AdminController extends Controller
             $em->remove($comment);
             $em->flush();
             $this->addFlash('success', "Le commentaire a bien été supprimé");
-            return $this->redirect($this->generateUrl($params['_route'], array(
-                'slug' => $params['slug']
-            )));
+            return $this->redirect($request->server->get('HTTP_REFERER'));
         } catch (\Exception $e) {
             $this->addFlash('error', "Une erreur est survenue lors de la suppression du commentaire");
         }
