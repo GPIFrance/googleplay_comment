@@ -14,7 +14,7 @@ class HomeController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('@App/Home/index.html.twig');
+        return $this->render('@App/home/index.html.twig');
     }
 
     public function signupAction(Request $request)
