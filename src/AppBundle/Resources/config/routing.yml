@@ -1,4 +1,9 @@
 #
+# JsRouting
+#
+app_js_touting:
+    resource:           "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+#
 # Default data
 #
 app_ini_user:
@@ -77,6 +82,8 @@ app_admin_comments:
         _controller:    AppBundle:Admin:comments
         app_name:       null
         user_username:  null
+    options:
+        expose:         true
 app_admin_comment_update:
     path:               /admin/comment/update/{id}
     defaults:
@@ -85,3 +92,18 @@ app_admin_comment_delete:
     path:               /admin/comment/delete/{id}
     defaults:
         _controller:    AppBundle:Admin:commentDelete
+#
+# Api
+#
+app_api:
+    path:               /api/{entity}
+    defaults:
+        _controller:    AppBundle:Api:index
+    options:
+        expose:         true
+app_api_comments:
+    path:               /api/comments/{appName}
+    defaults:
+        _controller:    AppBundle:Api:comments
+    options:
+        expose:         true

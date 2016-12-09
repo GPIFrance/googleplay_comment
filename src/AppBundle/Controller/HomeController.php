@@ -54,9 +54,9 @@ class HomeController extends Controller
     public function signinAction()
     {
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATE_REMEMBERED')) {
-            return $this->redirectToRoute('app_app');
+            return $this->redirectToRoute('app_home_apps');
         } else if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('app_admin');
+            return $this->redirectToRoute('app_admin_users');
         }
 
         $authenticationUtils = $this->get('security.authentication_utils');

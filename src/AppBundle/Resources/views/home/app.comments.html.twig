@@ -17,29 +17,30 @@
 			</div>
 		</div>
 		<div class="column">
-			<h2 class="ui dividing header">Commentaires</h2>
-			<div class="ui comments">
-				{% for comment in comments %}
-					<div class="ui raised segment comment custom_segment_comment">
-						<a class="avatar">
-							<img src="{{ asset('images/businessman.svg') }}">
-						</a>
-						<div class="content">
-							{% if app.user.roles[0] == 'ROLE_ADMIN' %}
-								<a href="{{ path('app_admin_comments', {'app_name': application.name, 'user_username': comment.user.username}) }}">{{ comment.user.username }}</a>
-							{% else %}
-								<span class="author">{{ comment.user.username }}</span>
-							{% endif %}
-							<div class="metadata">
-								<span class="date">{{ comment.dtCreation|date('Y-m-d à H:i:s') }}</span>
-							</div>
-							<div class="text">{{ comment.content|nl2br|raw }}</div>
-						</div>
-					</div>
-				{% else %}
-					<div class="ui center aligned large header">Aucun commentaire</div>
-				{% endfor %}
-			</div>
+			<commentary app-name="{{ application.name }}"></commentary>
+			{#<h2 class="ui dividing header">Commentaires</h2>#}
+			{#<div class="ui comments">#}
+				{#{% for comment in comments %}#}
+					{#<div class="ui raised segment comment custom_segment_comment">#}
+						{#<a class="avatar">#}
+							{#<img src="{{ asset('images/businessman.svg') }}">#}
+						{#</a>#}
+						{#<div class="content">#}
+							{#{% if app.user.roles[0] == 'ROLE_ADMIN' %}#}
+								{#<a href="{{ path('app_admin_comments', {'app_name': application.name, 'user_username': comment.user.username}) }}">{{ comment.user.username }}</a>#}
+							{#{% else %}#}
+								{#<span class="author">{{ comment.user.username }}</span>#}
+							{#{% endif %}#}
+							{#<div class="metadata">#}
+								{#<span class="date">{{ comment.dtCreation|date('Y-m-d à H:i:s') }}</span>#}
+							{#</div>#}
+							{#<div class="text">{{ comment.content|nl2br|raw }}</div>#}
+						{#</div>#}
+					{#</div>#}
+				{#{% else %}#}
+					{#<div class="ui center aligned large header">Aucun commentaire</div>#}
+				{#{% endfor %}#}
+			{#</div>#}
 		</div>
 		<div class="column">
 			<div class="ui sticky stacked segment">

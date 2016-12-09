@@ -15,6 +15,7 @@
 				<th>Nom</th>
 				<th>Version</th>
 				<th>Comment</th>
+				<th>Disponible</th>
 				<th></th>
 			</tr>
 			</thead>
@@ -24,6 +25,7 @@
 					<td>{{ appItem.name }}</td>
 					<td>{{ appItem.version }}</td>
 					<td>{{ appItem.comment }}</td>
+					<td>{{ appItem.available ? 'OUI' : 'NON' }}</td>
 					<td>
 						<div class="ui fluid buttons">
 							<a href="{{ path('app_admin_app_update', {'id': appItem.id}) }}" class="ui orange button">Modifier</a>

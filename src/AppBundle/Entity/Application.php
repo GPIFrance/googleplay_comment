@@ -43,6 +43,21 @@ class Application
     private $comment;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="available", type="boolean")
+     */
+    private $available;
+
+    /**
+     * Application constructor.
+     */
+    public function __construct()
+    {
+        $this->available = false;
+    }
+
+    /**
      * Get id
      *
      * @return int
@@ -122,5 +137,29 @@ class Application
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * Set available
+     *
+     * @param boolean $available
+     *
+     * @return Application
+     */
+    public function setAvailable($available)
+    {
+        $this->available = $available;
+
+        return $this;
+    }
+
+    /**
+     * Get available
+     *
+     * @return boolean
+     */
+    public function getAvailable()
+    {
+        return $this->available;
     }
 }

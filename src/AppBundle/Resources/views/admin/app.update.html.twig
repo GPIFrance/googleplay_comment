@@ -6,7 +6,7 @@
 	<div class="ui middle aligned center aligned grid">
 		<div class="column" style="max-width: 450px;margin-top: 5rem;">
 			<h2 class="ui left aligned header">Modification d'une application</h2>
-			<div class="ui stacked segment">
+			<div class="ui left aligned stacked segment">
 				{{ form_start(form, {'attr': {'class': 'ui form'}}) }}
 				{{ form_widget(form._token) }}
 				<div class="field">
@@ -17,6 +17,12 @@
 				</div>
 				<div class="field">
 					{{ form_widget(form.comment, {'attr': {'autocomplete': 'off'}}) }}
+				</div>
+				<div class="field">
+					<div class="ui checkbox">
+						{{ form_widget(form.available, {'attr': {'autocomplete': 'off'}}) }}
+						<label>Disponible</label>
+					</div>
 				</div>
 				<button type="submit" class="ui fluid positive button">Modifier</button>
 				{{ form_end(form) }}

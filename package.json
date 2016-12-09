@@ -4,11 +4,13 @@
   "author": "JC",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack --progress --watch --hot",
+    "dev": "cross-env NODE_ENV=development webpack --progress --watch",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "vue": "^2.1.0"
+    "moment": "^2.17.1",
+    "vue": "^2.1.0",
+    "vue-resource": "^1.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

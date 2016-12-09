@@ -66,3 +66,7 @@
 .custom_error_container h1 {
 	font-size: 5em!important;
 }
+
+.custom_comments_container {
+	min-height: 150px;
+}
