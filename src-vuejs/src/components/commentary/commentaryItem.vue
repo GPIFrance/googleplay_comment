@@ -4,7 +4,7 @@
 			<img :src="image">
 		</a>
 		<div class="content">
-			<a v-if="user.roles[0] == 'ROLE_ADMIN'" :href="FOSRouting.generate('app_admin_comments', {app_name: appName, user_username: user.username})" class="author">{{ comment.user.username }}</a>
+			<a v-if="isAdmin(user)" :href="FOSRouting.generate('app_admin_comments', {app_name: appName, user_username: user.username})" class="author">{{ comment.user.username }}</a>
 			<span v-else class="author">{{ comment.user.username }}</span>
 			<div class="metadata">
 				<span class="date">{{ moment(comment.dtCreation.timestamp).format('DD/M/YYYY') }}</span>
@@ -33,6 +33,11 @@
 		methods: {
 			moment() {
 				return Moment();
+			},
+			isAdmin(user) {
+				return user.roles.findIndex(e => {
+						return e == 'ROLE_ADMIN';
+					});
 			}
 		}
 	}
